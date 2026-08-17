@@ -199,7 +199,7 @@ The app is set up for [Railway](https://docs.railway.com/guides/vue) from GitHub
 - `Dockerfile` — Node build, then Caddy serving `dist/`
 - `Caddyfile` — gzip, `/health`, SPA fallback to `index.html`
 
-Pushes to **`master`** trigger a redeploy. The GitHub default branch is still `main` (initial commit only); Railway is pointed at `master`.
+Pushes to **`main`** trigger a redeploy.
 
 ## Learn more
 
