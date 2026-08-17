@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import ApiTrace from './components/ApiTrace.vue'
+import BriefingPage from './components/BriefingPage.vue'
 import ChatPanel from './components/ChatPanel.vue'
 import { computed, ref } from 'vue'
 import { useChromeLlm } from './composables/useChromeLlm'
+
+type View = 'demo' | 'briefing'
+
+const view = ref<View>('demo')
 
 const {
   availability,
@@ -46,10 +51,28 @@ async function copyChromeUrl(url: string) {
 <template>
   <div class="crt">
     <header class="banner">
-      <pre class="ansi">
+      <div class="banner-row">
+        <pre class="ansi">
  █▄ █ ▄▀█ █▄ █ █▀█  █▄▄ █▄▄ █▀    ∙  NODE 01  ∙  GEMINI NANO  ∙  2400-8-N-1
  █ ▀█ █▀█ █ ▀█ █▄█  █▄█ █▄█ ▄█    use-chrome-ai  //  Prompt API  //  LOCAL
-      </pre>
+        </pre>
+        <nav class="view-nav">
+          <button
+            type="button"
+            :class="view === 'demo' ? '' : 'ghost'"
+            @click="view = 'demo'"
+          >
+            [1] Demo
+          </button>
+          <button
+            type="button"
+            :class="view === 'briefing' ? '' : 'ghost'"
+            @click="view = 'briefing'"
+          >
+            [2] Briefing
+          </button>
+        </nav>
+      </div>
       <p class="lede">
         On-device chat via window.LanguageModel — no cloud hop. First create() may download the model.
         Enable
@@ -64,7 +87,7 @@ async function copyChromeUrl(url: string) {
       </p>
     </header>
 
-    <aside class="status">
+    <aside v-if="view === 'demo'" class="status">
       <div class="status-row">
         <span>AVAIL:</span>
         <strong class="hi">{{ availability }}</strong>
@@ -84,7 +107,20 @@ async function copyChromeUrl(url: string) {
       </nav>
     </aside>
 
-    <main class="workspace">
+    <aside v-else class="status">
+      <div class="status-row">
+        <span>BOARD:</span>
+        <strong class="hi">BRIEFING</strong>
+        <span>TOPIC:</span>
+        <strong class="ok">LanguageModel / Prompt API</strong>
+      </div>
+      <p class="note">
+        Overview of Chrome's on-device Prompt API and the calls this demo uses. Switch to
+        [1] Demo to try them live.
+      </p>
+    </aside>
+
+    <main v-if="view === 'demo'" class="workspace">
       <ChatPanel :messages="messages" :busy="busy" :ready="ready" @send="sendPrompt" @stop="stopPrompt" />
       <ApiTrace
         :calls="apiCalls"
@@ -92,6 +128,10 @@ async function copyChromeUrl(url: string) {
         :context-window="contextWindow"
         @clear="clearTrace"
       />
+    </main>
+
+    <main v-else class="workspace briefing-workspace">
+      <BriefingPage :copied-url="copiedUrl" @copy-url="copyChromeUrl" />
     </main>
   </div>
 </template>

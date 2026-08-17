@@ -19,9 +19,9 @@ export interface ChatMessage {
   streaming?: boolean
 }
 
-const SYSTEM_PROMPT =
-  'You are a concise on-device assistant running as Gemini Nano inside Chrome. Keep answers helpful and relatively short unless the user asks for more.'
-
+//const SYSTEM_PROMPT =
+//  'You are a concise on-device assistant running as Gemini Nano inside Chrome. Keep answers helpful and relatively short unless the user asks for more.'
+const SYSTEM_PROMPT = 'You are a smart and robotic assistant. Answer questions in a very flat and short manner. Use 90s BBS slang and terminology.'
 const SESSION_OPTIONS = {
   expectedInputs: [{ type: 'text' as const, languages: ['en'] }],
   expectedOutputs: [{ type: 'text' as const, languages: ['en'] }],

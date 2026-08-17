@@ -14,6 +14,31 @@
 
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fg) #001100;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #001100;
+  border-left: 1px solid var(--dim);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--fg);
+  border: 2px solid #001100;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--hi);
+}
+
+*::-webkit-scrollbar-corner {
+  background: #001100;
 }
 
 html,
@@ -74,6 +99,21 @@ code {
   padding: 4px 8px 6px;
   margin-bottom: 6px;
   box-shadow: 0 0 0 1px #003300 inset;
+}
+
+.banner-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.view-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding-top: 4px;
 }
 
 .ansi {
@@ -367,10 +407,110 @@ pre.response {
   color: var(--cyan);
 }
 
+.briefing-workspace {
+  grid-template-columns: 1fr;
+}
+
+.briefing {
+  border-color: var(--cyan);
+}
+
+.briefing .panel-head {
+  background: var(--cyan);
+}
+
+.briefing-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 10px 14px 18px;
+}
+
+.brief {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--dim);
+}
+
+.brief:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.brief h2 {
+  color: var(--hi);
+  font-size: 22px;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+.brief h3 {
+  margin: 0 0 4px;
+  color: var(--cyan);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.brief p,
+.brief li {
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+
+.brief ul,
+.brief ol {
+  margin: 0 0 10px;
+  padding-left: 1.4em;
+}
+
+.brief strong {
+  color: var(--white);
+  font-weight: 400;
+}
+
+.brief a {
+  color: var(--hi);
+}
+
+.tag {
+  display: inline-block;
+  min-width: 6.5em;
+  margin-right: 6px;
+  color: var(--mag);
+}
+
+.flow {
+  list-style: decimal;
+}
+
+.fn {
+  margin: 12px 0;
+  padding: 8px;
+  border: 1px solid var(--dim);
+}
+
+.snippet {
+  margin: 8px 0 0;
+  padding: 8px;
+  border: 1px solid var(--dim);
+  background: #001100;
+  color: var(--cyan);
+  font-size: 17px;
+  overflow-x: auto;
+}
+
 @media (max-width: 900px) {
   .workspace {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .briefing-workspace {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .banner-row {
+    flex-direction: column;
   }
 
   .ansi {
